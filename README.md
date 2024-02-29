@@ -1,4 +1,4 @@
-#AlertKit
+# AlertKit
 
 <p align="center">
     <img src="https://img.shields.io/badge/iOS-15.0+-27ae60.svg" />
@@ -66,7 +66,7 @@ Contributions to AlertKit are welcome! If you have ideas for improvements or new
 
 ## License
 
-MIT License.
+[MIT Licence](https://github.com/0xYanis/AlertKit/blob/main/LICENSE)
 
 Copyright (c) 2024 Yanis Rybkin.
 
