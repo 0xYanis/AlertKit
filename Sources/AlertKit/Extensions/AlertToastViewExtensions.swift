@@ -19,6 +19,7 @@ public extension View {
         isPresented: SwiftUI.Binding<Bool>,
         shape: Figure,
         background: Background,
+        haptic: UINotificationFeedbackGenerator.FeedbackType? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Figure : Shape, Background : ShapeStyle, Content : View {
         ZStack {
@@ -27,6 +28,7 @@ public extension View {
                 isPresented: isPresented,
                 shape: shape,
                 background: background,
+                haptic: haptic,
                 content: content
             )
         }
@@ -39,6 +41,7 @@ public extension View {
     ///   - content: A closure returning the content of the alert toast.
     func alertToast<Content>(
         isPresented: SwiftUI.Binding<Bool>,
+        haptic: UINotificationFeedbackGenerator.FeedbackType? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Content : View {
         ZStack {
@@ -47,6 +50,7 @@ public extension View {
                 isPresented: isPresented,
                 shape: RoundedRectangle(cornerRadius: 12),
                 background: Color.alertColor,
+                haptic: haptic,
                 content: content
             )
         }
@@ -61,21 +65,24 @@ public extension View {
     func alertToast(
         isPresented: SwiftUI.Binding<Bool>,
         systemImage: String,
-        message: String
+        message: String,
+        haptic: UINotificationFeedbackGenerator.FeedbackType? = nil
     ) -> some View {
         ZStack {
             self
             AlertToastItem(
                 isPresented: isPresented,
                 shape: RoundedRectangle(cornerRadius: 12),
-                background: Color.alertColor) {
-                    HStack {
-                        Image(systemName: systemImage)
-                        Text(message)
-                    }
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
+                background: Color.alertColor,
+                haptic: haptic
+            ) {
+                HStack {
+                    Image(systemName: systemImage)
+                    Text(message)
                 }
+                .font(.callout)
+                .foregroundStyle(.secondary)
+            }
         }
     }
     
@@ -86,23 +93,26 @@ public extension View {
     ///   - message: An optional message to display with the progress indicator.
     func alertToastProgress(
         isPresented: SwiftUI.Binding<Bool>,
-        message: String? = nil
+        message: String? = nil,
+        haptic: UINotificationFeedbackGenerator.FeedbackType? = nil
     ) -> some View {
         ZStack {
             self
             AlertToastItem(
                 isPresented: isPresented,
                 shape: RoundedRectangle(cornerRadius: 12),
-                background: Color.alertColor) {
-                    HStack {
-                        ProgressView()
-                        if let text = message {
-                            Text(text).padding(.leading, 2)
-                        }
+                background: Color.alertColor,
+                haptic: haptic
+            ) {
+                HStack {
+                    ProgressView()
+                    if let text = message {
+                        Text(text).padding(.leading, 2)
                     }
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
                 }
+                .font(.callout)
+                .foregroundStyle(.secondary)
+            }
         }
     }
     
@@ -113,18 +123,21 @@ public extension View {
     ///   - message: The message to display in the alert toast.
     func alertToast(
         isPresented: SwiftUI.Binding<Bool>,
-        message: String
+        message: String,
+        haptic: UINotificationFeedbackGenerator.FeedbackType? = nil
     ) -> some View {
         ZStack {
             self
             AlertToastItem(
                 isPresented: isPresented,
                 shape: RoundedRectangle(cornerRadius: 12),
-                background: Color.alertColor) {
-                    Text(message)
+                background: Color.alertColor,
+                haptic: haptic
+            ) {
+                Text(message)
                     .font(.callout)
                     .foregroundStyle(.secondary)
-                }
+            }
         }
     }
 }

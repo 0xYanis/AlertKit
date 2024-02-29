@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AlertBarItem<Content, Figure, Background>: View where Content : View, Figure : Shape, Background : ShapeStyle {
-    @Binding var isPresented: Bool
+    @Binding private var isPresented: Bool
     
     @State private var timer: Timer?
     @State private var offset = CGSize()
@@ -16,19 +16,24 @@ struct AlertBarItem<Content, Figure, Background>: View where Content : View, Fig
     private var timeInterval: TimeInterval
     private var shape: Figure
     private var background: Background
+    private var haptic: UINotificationFeedbackGenerator.FeedbackType?
     private var content: () -> Content
+    
+    private let generator = UINotificationFeedbackGenerator()
     
     init(
         isPresented: SwiftUI.Binding<Bool>,
         timeInterval: TimeInterval = 3,
         shape: Figure,
         background: Background,
+        haptic: UINotificationFeedbackGenerator.FeedbackType?,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self._isPresented = isPresented
         self.timeInterval = timeInterval
         self.shape = shape
         self.background = background
+        self.haptic = haptic
         self.content = content
     }
     
@@ -66,6 +71,11 @@ struct AlertBarItem<Content, Figure, Background>: View where Content : View, Fig
         .offset(y: -proxy.safeAreaInsets.bottom)
         .offset(x: offset.width)
         .padding(.horizontal)
+        .onAppear {
+            if let haptic {
+                generator.notificationOccurred(haptic)
+            }
+        }
     }
     
     private func onChange(_ gesture: DragGesture.Value) {

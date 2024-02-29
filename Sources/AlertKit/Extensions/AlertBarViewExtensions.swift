@@ -21,6 +21,7 @@ public extension View {
         timeInterval: TimeInterval = 3,
         shape: Figure,
         background: Background,
+        haptic: UINotificationFeedbackGenerator.FeedbackType? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Figure : Shape, Background : ShapeStyle, Content : View {
         ZStack {
@@ -30,6 +31,7 @@ public extension View {
                 timeInterval: timeInterval,
                 shape: shape,
                 background: background,
+                haptic: haptic,
                 content: content
             )
         }
@@ -44,6 +46,7 @@ public extension View {
     func alertBar<Content>(
         isPresented: SwiftUI.Binding<Bool>,
         timeInterval: TimeInterval = 3,
+        haptic: UINotificationFeedbackGenerator.FeedbackType? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Content : View {
         ZStack {
@@ -53,6 +56,7 @@ public extension View {
                 timeInterval: timeInterval,
                 shape: RoundedRectangle(cornerRadius: 12),
                 background: Color.alertColor,
+                haptic: haptic,
                 content: content
             )
         }

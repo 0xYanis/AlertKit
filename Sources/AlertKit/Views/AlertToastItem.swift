@@ -15,20 +15,25 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
     private var timeInterval: TimeInterval
     private var shape: Figure
     private var background: Background
+    private var haptic: UINotificationFeedbackGenerator.FeedbackType?
     private var content: () -> Content
+    
+    private let generator = UINotificationFeedbackGenerator()
     
     init(
         isPresented: SwiftUI.Binding<Bool>,
         timeInterval: TimeInterval = 3,
         shape: Figure,
         background: Background,
+        haptic: UINotificationFeedbackGenerator.FeedbackType?,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self._isPresented = isPresented
-        self.content = content
         self.timeInterval = timeInterval
         self.shape = shape
         self.background = background
+        self.haptic = haptic
+        self.content = content
     }
     
     var body: some View {
@@ -63,6 +68,11 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
                     .combined(with: .scale(scale: 0.7))
                     .combined(with: .opacity)))
             .offset(y: offset.height)
+            .onAppear {
+                if let haptic {
+                    generator.notificationOccurred(haptic)
+                }
+            }
     }
     
     private func onChange(_ gesture: DragGesture.Value) {
