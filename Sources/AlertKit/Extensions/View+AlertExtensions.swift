@@ -23,17 +23,13 @@ public extension View {
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Figure : Shape, Background : ShapeStyle, Content : View {
         ZStack {
-            
-            
             self
-            
             AlertToastItem(
                 isPresented: isPresented,
                 shape: shape,
                 background: background,
                 content: content
             )
-            .animation(.easeIn(duration: 0.2), value: isPresented.wrappedValue)
         }
     }
     
@@ -49,14 +45,12 @@ public extension View {
     ) -> some View where Content : View {
         ZStack {
             self
-            
             AlertToastItem(
                 isPresented: isPresented,
                 shape: RoundedRectangle(cornerRadius: 12),
                 background: Color.alertColor,
                 content: content
             )
-            .animation(.easeIn(duration: 0.2), value: isPresented.wrappedValue)
         }
     }
     
@@ -74,7 +68,6 @@ public extension View {
     ) -> some View {
         ZStack {
             self
-            
             AlertToastItem(
                 isPresented: isPresented,
                 shape: RoundedRectangle(cornerRadius: 12),
@@ -86,7 +79,6 @@ public extension View {
                     .font(.callout)
                     .foregroundStyle(.secondary)
                 }
-                .animation(.easeIn(duration: 0.2), value: isPresented.wrappedValue)
         }
     }
     
@@ -102,7 +94,6 @@ public extension View {
     ) -> some View {
         ZStack {
             self
-            
             AlertToastItem(
                 isPresented: isPresented,
                 shape: RoundedRectangle(cornerRadius: 12),
@@ -116,7 +107,6 @@ public extension View {
                     .font(.callout)
                     .foregroundStyle(.secondary)
                 }
-                .animation(.easeIn(duration: 0.2), value: isPresented.wrappedValue)
         }
     }
     
@@ -132,7 +122,6 @@ public extension View {
     ) -> some View {
         ZStack {
             self
-            
             AlertToastItem(
                 isPresented: isPresented,
                 shape: RoundedRectangle(cornerRadius: 12),
@@ -141,7 +130,6 @@ public extension View {
                     .font(.callout)
                     .foregroundStyle(.secondary)
                 }
-                .animation(.easeIn(duration: 0.2), value: isPresented.wrappedValue)
         }
     }
 }

@@ -11,18 +11,22 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
     @Binding private var isPresented: Bool
     @State private var timer: Timer?
     @State private var offset = CGSize()
+    
+    private var timeInterval: TimeInterval
     private var shape: Figure
     private var background: Background
     private var content: () -> Content
     
     init(
         isPresented: SwiftUI.Binding<Bool>,
+        timeInterval: TimeInterval = 3,
         shape: Figure,
         background: Background,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self._isPresented = isPresented
         self.content = content
+        self.timeInterval = timeInterval
         self.shape = shape
         self.background = background
     }
@@ -31,17 +35,7 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
         GeometryReader { _ in
             ZStack {
                 if isPresented {
-                    content()
-                    .padding(12)
-                    .background(background)
-                    .clipShape(shape)
-                    .frame(maxWidth: .infinity)
-                    .transition(
-                        .move(edge: .top)
-                        .combined(with: .scale(scale: 0.7))
-                        .combined(with: .opacity)
-                    )
-                    .offset(y: offset.height)
+                    contentView
                 }
             }
             .gesture(
@@ -57,6 +51,18 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
                 }
             }
         }
+        .animation(.easeIn(duration: 0.2), value: isPresented)
+    }
+    
+    private var contentView: some View {
+        content()
+            .modifier(BaseModifier(
+                background: background,
+                shape: shape,
+                transition: .move(edge: .top)
+                    .combined(with: .scale(scale: 0.7))
+                    .combined(with: .opacity)))
+            .offset(y: offset.height)
     }
     
     private func onChange(_ gesture: DragGesture.Value) {
@@ -84,7 +90,7 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
     
     private func resetTimer() {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { _ in
             hideAlert()
         }
     }
