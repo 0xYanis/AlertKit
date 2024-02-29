@@ -1,5 +1,5 @@
 //
-// View+AlertExtensions.swift
+// AlertToastViewExtensions.swift
 // AlertKit
 // https://www.github.com/0xYanis/AlertKit
 // See LICENSE for license information.
@@ -15,7 +15,6 @@ public extension View {
     ///   - shape: The shape of the alert toast.
     ///   - background: The background style of the alert toast.
     ///   - content: A closure returning the content of the alert toast.
-    /// - Returns: A view containing the alert toast.
     func alertToast<Figure, Background, Content>(
         isPresented: SwiftUI.Binding<Bool>,
         shape: Figure,
@@ -38,7 +37,6 @@ public extension View {
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
     ///   - content: A closure returning the content of the alert toast.
-    /// - Returns: A view containing the default alert toast.
     func alertToast<Content>(
         isPresented: SwiftUI.Binding<Bool>,
         @ViewBuilder content: @escaping () -> Content
@@ -60,7 +58,6 @@ public extension View {
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
     ///   - systemImage: The name of the system image (SF Symbols) to display in the alert toast.
     ///   - message: The message to display in the alert toast.
-    /// - Returns: A view containing the alert toast with system image and message.
     func alertToast(
         isPresented: SwiftUI.Binding<Bool>,
         systemImage: String,
@@ -87,7 +84,6 @@ public extension View {
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
     ///   - message: An optional message to display with the progress indicator.
-    /// - Returns: A view containing the progress alert toast.
     func alertToastProgress(
         isPresented: SwiftUI.Binding<Bool>,
         message: String? = nil
@@ -115,7 +111,6 @@ public extension View {
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
     ///   - message: The message to display in the alert toast.
-    /// - Returns: A view containing the alert toast with the specified message.
     func alertToast(
         isPresented: SwiftUI.Binding<Bool>,
         message: String
