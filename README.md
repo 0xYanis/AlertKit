@@ -9,6 +9,14 @@
 
 AlertKit is a library for SwiftUI that enables the creation of interactive and customized alerts to enhance user experience.
 
+<html>
+ <body>
+  <p>
+    <img src="image.png">
+  </p>
+ </body>
+</html>
+
 ## Features
 
 - Easy integration with SwiftUI projects
