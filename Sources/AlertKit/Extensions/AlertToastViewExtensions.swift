@@ -12,12 +12,14 @@ public extension View {
     /// Adds a custom alert toast to the view.
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
+    ///   - timeInterval: The time interval for which the alert bar should be displayed.
     ///   - shape: The shape of the alert toast.
     ///   - background: The background style of the alert toast.
     ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
     ///   - content: A closure returning the content of the alert toast.
     func alertToast<Figure, Background, Content>(
         isPresented: SwiftUI.Binding<Bool>,
+        timeInterval: TimeInterval = 3,
         shape: Figure,
         background: Background,
         haptic: UINotificationFeedbackGenerator.FeedbackType? = nil,
@@ -27,6 +29,7 @@ public extension View {
             self
             AlertToastItem(
                 isPresented: isPresented,
+                timeInterval: timeInterval,
                 shape: shape,
                 background: background,
                 haptic: haptic,
