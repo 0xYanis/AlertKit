@@ -15,6 +15,7 @@ public extension View {
     ///   - timeInterval: The time interval for which the alert bar should be displayed.
     ///   - shape: The shape of the alert bar.
     ///   - background: The background style of the alert bar.
+    ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
     ///   - content: A closure returning the content of alert bar.
     func alertBar<Figure, Background, Content>(
         isPresented: SwiftUI.Binding<Bool>,
@@ -42,6 +43,7 @@ public extension View {
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean that determines whether the alert bar should be presented.
     ///   - timeInterval: The time interval for which the alert bar should be displayed.
+    ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
     ///   - content: A closure returning the content of alert bar.
     func alertBar<Content>(
         isPresented: SwiftUI.Binding<Bool>,

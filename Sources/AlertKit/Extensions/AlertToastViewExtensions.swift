@@ -14,6 +14,7 @@ public extension View {
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
     ///   - shape: The shape of the alert toast.
     ///   - background: The background style of the alert toast.
+    ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
     ///   - content: A closure returning the content of the alert toast.
     func alertToast<Figure, Background, Content>(
         isPresented: SwiftUI.Binding<Bool>,
@@ -38,6 +39,7 @@ public extension View {
     /// Adds a default alert toast to the view.
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
+    ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
     ///   - content: A closure returning the content of the alert toast.
     func alertToast<Content>(
         isPresented: SwiftUI.Binding<Bool>,
@@ -61,11 +63,12 @@ public extension View {
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
     ///   - systemImage: The name of the system image (SF Symbols) to display in the alert toast.
-    ///   - message: The message to display in the alert toast.
+    ///   - text: The text for the localized string that describes the of the alert.
+    ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
     func alertToast(
         isPresented: SwiftUI.Binding<Bool>,
         systemImage: String,
-        message: String,
+        text: LocalizedStringKey,
         haptic: UINotificationFeedbackGenerator.FeedbackType? = nil
     ) -> some View {
         ZStack {
@@ -78,7 +81,7 @@ public extension View {
             ) {
                 HStack {
                     Image(systemName: systemImage)
-                    Text(message)
+                    Text(text)
                 }
                 .font(.callout)
                 .foregroundStyle(.secondary)
@@ -89,11 +92,12 @@ public extension View {
     
     /// Adds a progress alert toast to the view.
     /// - Parameters:
+    ///   - titleKey: The key for the localized string that describes the of the alert.
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
-    ///   - message: An optional message to display with the progress indicator.
+    ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
     func alertToastProgress(
+        _ titleKey: LocalizedStringKey? = nil,
         isPresented: SwiftUI.Binding<Bool>,
-        message: String? = nil,
         haptic: UINotificationFeedbackGenerator.FeedbackType? = nil
     ) -> some View {
         ZStack {
@@ -106,9 +110,7 @@ public extension View {
             ) {
                 HStack {
                     ProgressView()
-                    if let text = message {
-                        Text(text).padding(.leading, 2)
-                    }
+                    if let titleKey { Text(titleKey).padding(.leading, 2) }
                 }
                 .font(.callout)
                 .foregroundStyle(.secondary)
@@ -119,11 +121,12 @@ public extension View {
     
     /// Adds an alert toast with a custom message to the view.
     /// - Parameters:
+    ///   - titleKey: The key for the localized string that describes the of the alert.
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
-    ///   - message: The message to display in the alert toast.
+    ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
     func alertToast(
+        _ titleKey: LocalizedStringKey,
         isPresented: SwiftUI.Binding<Bool>,
-        message: String,
         haptic: UINotificationFeedbackGenerator.FeedbackType? = nil
     ) -> some View {
         ZStack {
@@ -134,7 +137,7 @@ public extension View {
                 background: Color.alertColor,
                 haptic: haptic
             ) {
-                Text(message)
+                Text(titleKey)
                     .font(.callout)
                     .foregroundStyle(.secondary)
             }
