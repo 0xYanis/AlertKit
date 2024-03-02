@@ -19,12 +19,11 @@ AlertKit is a library for SwiftUI that enables the creation of interactive and c
 
 ## Features
 
-- Easy integration with SwiftUI projects
-- Customizable alert styles and animations
-- Support for interactive elements within alerts
+- Simple implementation as Sheet or fullScreenCover
+- Сustomization for every taste
+- Support for haptics, gestures and animations
 
 This library is compatible with iOS, macOS, tvOS and watchOS.
-
 
 ## Installing
 
@@ -64,6 +63,13 @@ import AlertKit
     }
 }
 ```
+
+## List of available alerts
+
+- [alertToast (Small toast at the top of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Extensions/AlertToastViewExtensions.swift)
+- [alertBar (Large bar at the bottom of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Extensions/AlertBarViewExtensions.swift)
+
+
 
 ## Contributing
 
