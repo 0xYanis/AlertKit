@@ -16,7 +16,7 @@ public extension View {
     ///   - shape: The shape of the alert toast.
     ///   - background: The background style of the alert toast.
     ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
-    ///   - content: A closure returning the content of the alert toast.
+    ///   - content: A content to present.
     func alertToast<Figure, Background, Content>(
         isPresented: SwiftUI.Binding<Bool>,
         timeInterval: TimeInterval = 3,
@@ -43,7 +43,7 @@ public extension View {
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether the alert toast should be presented.
     ///   - haptic: A feedback that creates haptics to communicate successes, failures, and warnings.
-    ///   - content: A closure returning the content of the alert toast.
+    ///   - content: A content to present.
     func alertToast<Content>(
         isPresented: SwiftUI.Binding<Bool>,
         haptic: UINotificationFeedbackGenerator.FeedbackType? = nil,

@@ -9,10 +9,18 @@ import SwiftUI
 
 extension Color {
     static var alertColor: Color {
-#if os(iOS)
+        #if os(iOS)
         Color(.secondarySystemBackground)
-#else
+        #else
         Color(.gray)
-#endif
+        #endif
+    }
+    
+    static var systemBackground: Color {
+        #if os(iOS)
+        Color(.systemBackground)
+        #else
+        Color(nsColor: .controlBackgroundColor)
+        #endif
     }
 }
