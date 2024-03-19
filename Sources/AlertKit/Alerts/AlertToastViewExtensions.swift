@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Adds an alert toast to the view.
+/// Adds an alert toast to the view.
 public extension View {
     /// Adds a custom alert toast to the view.
     /// - Parameters:
