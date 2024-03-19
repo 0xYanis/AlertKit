@@ -43,10 +43,10 @@ import AlertKit
 @State var isPresented: Bool = false
 ```
 
-2. Apply a modifier similar to `sheet` to the content of your `view`:
+2. Apply a modifier to the content of your `view`:
 
 ```swift
-.alertToast(isPresented: $isPresented, message: "Message for display")
+.alertToast("Hello, World!", isPresented: $isPresented)
 ```
 
 3. If you are interested in customization, then other modifiers are also available to you; In addition to the content shown, you can also change the shape and style of the alert itself.
@@ -54,8 +54,10 @@ import AlertKit
 ```swift
 .alertToast(
     isPresented: $isPresented,
+    timeInterval: 5,
     shape: Capsule(),
-    background: Material.ultraThinMaterial
+    background: Material.ultraThinMaterial,
+    haptic: .warning
 ) {
     HStack {
         Image("Github logo")
@@ -67,6 +69,7 @@ import AlertKit
 ## List of available alerts
 
 - [alertToast (Small toast at the top of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Extensions/AlertToastViewExtensions.swift)
+- [alertPanel (Large panel at the center of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Extensions/AlertPanelViewExtensions.swift)
 - [alertBar (Large bar at the bottom of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Extensions/AlertBarViewExtensions.swift)
 
 
