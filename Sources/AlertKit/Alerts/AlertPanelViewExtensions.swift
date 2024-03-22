@@ -15,7 +15,7 @@ public extension View {
     ///   - content: A content to present.
     func alertPanel<Content, Background>(
         isPresented: SwiftUI.Binding<Bool>,
-        background: Background = Color.systemBackground,
+        background: Background,
         transition: AnyTransition = .opacity.combined(with: .scale(scale: 0.9)),
         @ViewBuilder content: @escaping () -> Content
     ) -> some View where Content: View, Background : ShapeStyle {
