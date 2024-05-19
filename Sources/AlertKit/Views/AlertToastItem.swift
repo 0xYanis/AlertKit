@@ -43,20 +43,16 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
                     contentView
                 }
             }
-            .gesture(
-                DragGesture()
-                    .onChanged(onChange(_:))
-                    .onEnded { _ in onEnd() }
+            .gesture(DragGesture()
+                .onChanged(onChanged)
+                .onEnded(onEnded)
             )
             .onChange(of: isPresented) { newValue in
-                if newValue {
-                    resetTimer()
-                } else {
-                    timer?.invalidate()
-                }
+                if newValue { resetTimer()
+                } else { timer?.invalidate() }
             }
         }
-        .animation(.easeIn(duration: 0.2), value: isPresented)
+        .animation(.smooth(duration: 0.2), value: isPresented)
     }
     
     private var contentView: some View {
@@ -67,7 +63,7 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
                 transition: .move(edge: .top)
                     .combined(with: .scale(scale: 0.7))
                     .combined(with: .opacity)))
-            .offset(y: offset.height)
+            .offset(y: offset.height <= 40 ? offset.height : 0)
             .onAppear {
                 if let haptic {
                     generator.notificationOccurred(haptic)
@@ -75,18 +71,18 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
             }
     }
     
-    private func onChange(_ gesture: DragGesture.Value) {
+    private func onChanged(_ gesture: DragGesture.Value) {
         if offset.height <= 40 {
-            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8)) {
+            withAnimation(.smooth) {
                 offset = gesture.translation
             }
         }
         timer?.invalidate()
     }
     
-    private func onEnd() {
+    private func onEnded(_ gesture: DragGesture.Value) {
         if offset.height > 0 {
-            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8)) {
+            withAnimation(.smooth) {
                 offset = .zero
             }
         }
@@ -106,7 +102,7 @@ struct AlertToastItem<Content, Figure, Background>: View where Content : View, F
     }
     
     private func hideAlert() {
-        withAnimation(.easeInOut) {
+        withAnimation(.smooth) {
             isPresented = false
             timer?.invalidate()
             offset = .zero

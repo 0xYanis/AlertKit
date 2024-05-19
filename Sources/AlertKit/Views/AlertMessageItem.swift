@@ -62,7 +62,7 @@ struct AlertMessageItem<Background, Content>: View where Background : ShapeStyle
     
     private func onChanged(_ gesture: DragGesture.Value) {
         if offset.height <= 40 {
-            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8)) {
+            withAnimation(.smooth) {
                 offset = gesture.translation
             }
         }
@@ -71,7 +71,7 @@ struct AlertMessageItem<Background, Content>: View where Background : ShapeStyle
     
     private func onEnded(_ gesture: DragGesture.Value) {
         if offset.height > 0 {
-            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8)) {
+            withAnimation(.smooth) {
                 offset = .zero
             }
         }
@@ -91,7 +91,7 @@ struct AlertMessageItem<Background, Content>: View where Background : ShapeStyle
     }
     
     private func hideAlert() {
-        withAnimation(.easeInOut) {
+        withAnimation(.smooth) {
             isPresented = false
             timer?.invalidate()
             offset = .zero

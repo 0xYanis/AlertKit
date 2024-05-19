@@ -32,20 +32,18 @@ struct AlertPanelItem<Content, Background>: View where Content : View, Backgroun
                     .opacity(0.2)
                     .ignoresSafeArea()
                     .onTapGesture(perform: hide)
-                ZStack {
-                    content()
-                }
-                .padding(12)
-                .frame(maxWidth: .infinity)
-                .background(background)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .shadow(color: .black.opacity(0.1), radius: 20)
-                .padding()
-                .padding(.horizontal)
-                .transition(transition)
+                ZStack(content: content)
+                    .padding(12)
+                    .frame(maxWidth: .infinity)
+                    .background(background)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .shadow(color: .black.opacity(0.1), radius: 20)
+                    .padding()
+                    .padding(.horizontal)
+                    .transition(transition)
             }
         }
-        .animation(.easeInOut(duration: 0.2), value: isPresented)
+        .animation(.smooth(duration: 0.2), value: isPresented)
     }
     
     private func hide() {

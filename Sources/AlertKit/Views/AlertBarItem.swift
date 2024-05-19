@@ -44,60 +44,63 @@ struct AlertBarItem<Content, Figure, Background>: View where Content : View, Fig
                     contentView(proxy)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-            .gesture(
-                DragGesture()
-                    .onChanged(onChange(_:))
-                    .onEnded { _ in onEnd()}
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: .infinity,
+                alignment: .bottom
+            )
+            .gesture(DragGesture()
+                .onChanged(onChanged)
+                .onEnded(onEnded)
             )
         }
-        .animation(.interactiveSpring(response: 0.5, dampingFraction: 0.9), value: isPresented)
+        .animation(.smooth, value: isPresented)
         .onChange(of: isPresented) { newValue in
-            if newValue {
-                resetTimer()
-            } else {
-                timer?.invalidate()
-            }
+            if newValue { resetTimer()
+            } else { timer?.invalidate() }
         }
     }
     
     @ViewBuilder
     private func contentView(_ proxy: GeometryProxy) -> some View {
         content()
-        .modifier(BaseModifier(
-            background: background,
-            shape: shape,
-            transition: .slide.combined(with: .scale(scale: 1.0)).combined(with: .opacity)))
-        .offset(y: -proxy.safeAreaInsets.bottom)
-        .offset(x: offset.width)
-        .padding(.horizontal)
-        .onAppear {
-            if let haptic {
-                generator.notificationOccurred(haptic)
+            .modifier(BaseModifier(
+                background: background,
+                shape: shape,
+                transition: .slide
+                    .combined(with: .scale(scale: 1.0))
+                    .combined(with: .opacity))
+            )
+            .offset(y: -proxy.safeAreaInsets.bottom)
+            .offset(x: offset.width)
+            .padding(.horizontal)
+            .onAppear {
+                if let haptic {
+                    generator.notificationOccurred(haptic)
+                }
             }
-        }
     }
     
-    private func onChange(_ gesture: DragGesture.Value) {
+    private func onChanged(_ gesture: DragGesture.Value) {
         if offset.width > -15 {
-            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8)) {
+            withAnimation(.smooth) {
                 offset = gesture.translation
             }
         }
         timer?.invalidate()
     }
     
-    private func onEnd() {
+    private func onEnded(_ gesture: DragGesture.Value) {
         if offset.width > -100 && offset.width < 70 {
-            withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8)) {
+            withAnimation(.smooth) {
                 offset = .zero
             }
         }
-
+        
         if offset.width > 70 {
             hideAlert()
         }
-
+        
         resetTimer()
     }
     
@@ -109,7 +112,7 @@ struct AlertBarItem<Content, Figure, Background>: View where Content : View, Fig
     }
     
     private func hideAlert() {
-        withAnimation(.easeInOut) {
+        withAnimation(.smooth) {
             isPresented = false
             timer?.invalidate()
             offset = .zero
