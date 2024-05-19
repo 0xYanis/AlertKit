@@ -71,6 +71,7 @@ import AlertKit
 - [alertToast (Small toast at the top of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Alerts/AlertToastViewExtensions.swift)
 - [alertPanel (Large panel at the center of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Alerts/AlertPanelViewExtensions.swift)
 - [alertBar (Large bar at the bottom of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Alerts/AlertBarViewExtensions.swift)
+- [alertMessage (Large message (like push-notification) at the top of the view)](https://github.com/0xYanis/AlertKit/blob/main/Sources/AlertKit/Alerts/AlertMessageViewExtensions.swift)
 
 
 
